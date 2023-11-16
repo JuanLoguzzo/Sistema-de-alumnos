@@ -16,19 +16,27 @@ import Service.ServiceException;
 public class UsuarioGUI implements ActionListener {
     AlumnoService alumnoService = new AlumnoService();
     ProfesorService profesorService = new ProfesorService();
+
     JFrame frame = new JFrame();
+
     JPanel panelDivision = new JPanel();
     JPanel panelAlumno = new JPanel();
     JPanel panelProfesor = new JPanel();
+
     JLabel textoDivision = new JLabel("Como que tipo de usuario quiere iniciar sesion");
-    JButton registrarAlumno = new JButton("Alumno");
-    JButton registrarProfesor = new JButton("Profesor");
     JLabel alumnoUsuarioLabel = new JLabel("Ingrese su usuario: ");
     JLabel alumnoContraseñaLabel = new JLabel("Ingrese su contraseña: ");
     JLabel alumnoNombreLabel = new JLabel("Ingrese su  nombre: ");
     JLabel alumnoApellidoLabel = new JLabel("Ingrese su apellido: ");
+
     JButton registrarAlumnos = new JButton("Registrarse como alumno");
     JButton registrarProfesores = new JButton("Registrarse como profesor");
+    JButton registrarAlumno = new JButton("Alumno");
+    JButton registrarProfesor = new JButton("Profesor");
+    JButton volverDivision1 = new JButton("volver al registo");
+    JButton volverDivision2 = new JButton("volver al registo");
+    JButton eliminarAlumnoButton = new JButton("ELIMINAR");
+    JButton eliminarProfesorButton = new JButton("ELIMINAR");
 
     JTextField alumnoUsuarioField = new JTextField();
     JPasswordField alumnoContraseñaField = new JPasswordField();
@@ -39,11 +47,17 @@ public class UsuarioGUI implements ActionListener {
     JLabel profesorContraseñaLabel = new JLabel("Ingrese su contraseña: ");
     JLabel profesorNombreLabel = new JLabel("Ingrese su  nombre: ");
     JLabel profesorApellidoLabel = new JLabel("Ingrese su apellido: ");
+    JLabel profesorIDLabel = new JLabel("Ingrese su id: ");
+    JLabel alumnoIDLabel = new JLabel("Ingrese su id: ");
 
     JTextField profesorUsuarioField = new JTextField();
     JPasswordField profesorContraseñaField = new JPasswordField();
     JTextField profesorNombreField = new JTextField();
     JTextField profesorApellidoField = new JTextField();
+    JTextField profesorIdField = new JTextField();
+    JTextField alumnoIdField = new JTextField();
+
+
     public UsuarioGUI() {
 
 
@@ -60,13 +74,24 @@ public class UsuarioGUI implements ActionListener {
         alumnoNombreField.setBounds(200, 150, 205, 25);
         alumnoApellidoField.setBounds(200, 200, 205, 25);
 
-        registrarAlumnos.setBounds(75, 270, 200, 100);
+        registrarAlumnos.setBounds(25, 270, 200, 100);
         registrarAlumnos.addActionListener(this);
         registrarAlumnos.setFocusable(false);
 
         registrarAlumno.setBounds(150, 150, 220, 100);
         registrarAlumno.addActionListener(this);
         registrarAlumno.setFocusable(false);
+
+        volverDivision1.setBounds(250, 270, 220, 100);
+        volverDivision1.addActionListener(this);
+        volverDivision1.setFocusable(false);
+
+        eliminarAlumnoButton.setBounds(390, 400, 220, 100);
+        eliminarAlumnoButton.addActionListener(this);
+        eliminarAlumnoButton.setFocusable(false);
+
+        alumnoIdField.setBounds(175, 435, 205, 25);
+        alumnoIDLabel.setBounds(50, 435, 205, 25);
 
         panelAlumno.add(alumnoUsuarioLabel);
         panelAlumno.add(alumnoContraseñaLabel);
@@ -77,9 +102,13 @@ public class UsuarioGUI implements ActionListener {
         panelAlumno.add(alumnoContraseñaField);
         panelAlumno.add(alumnoNombreField);
         panelAlumno.add(alumnoApellidoField);
+        panelAlumno.add(volverDivision1);
+        panelAlumno.add(eliminarAlumnoButton);
+        panelAlumno.add(alumnoIdField);
+        panelAlumno.add(alumnoIDLabel);
 
         panelAlumno.setLayout(null);
-        panelAlumno.setBounds(0,0,425,425);
+        panelAlumno.setBounds(0,0,640,640);
         panelAlumno.setVisible(false);
 
         //PROFESORES
@@ -95,7 +124,11 @@ public class UsuarioGUI implements ActionListener {
         profesorNombreField.setBounds(200, 150, 205, 25);
         profesorApellidoField.setBounds(200, 200, 205, 25);
 
-        registrarProfesores.setBounds(75, 270, 200, 100);
+        volverDivision2.setBounds(250, 270, 220, 100);
+        volverDivision2.addActionListener(this);
+        volverDivision2.setFocusable(false);
+
+        registrarProfesores.setBounds(25, 270, 200, 100);
         registrarProfesores.addActionListener(this);
         registrarProfesores.setFocusable(false);
 
@@ -103,6 +136,13 @@ public class UsuarioGUI implements ActionListener {
         registrarProfesor.setBounds(150, 325, 220, 100);
         registrarProfesor.addActionListener(this);
         registrarProfesor.setFocusable(false);
+
+        eliminarProfesorButton.setBounds(390, 400, 220, 100);
+        eliminarProfesorButton.addActionListener(this);
+        eliminarProfesorButton.setFocusable(false);
+
+        profesorIdField.setBounds(175, 435, 205, 25);
+        profesorIDLabel.setBounds(50, 435, 205, 25);
 
         panelProfesor.add(profesorUsuarioLabel);
         panelProfesor.add(profesorContraseñaLabel);
@@ -113,9 +153,13 @@ public class UsuarioGUI implements ActionListener {
         panelProfesor.add(profesorContraseñaField);
         panelProfesor.add(profesorNombreField);
         panelProfesor.add(profesorApellidoField);
+        panelProfesor.add(volverDivision2);
+        panelProfesor.add(profesorIdField);
+        panelProfesor.add(eliminarProfesorButton);
+        panelProfesor.add(profesorIDLabel);
 
         panelProfesor.setLayout(null);
-        panelProfesor.setBounds(0,0,425,425);
+        panelProfesor.setBounds(0,0,640,640);
         panelProfesor.setVisible(false);
 
         //DIVISION
@@ -125,7 +169,7 @@ public class UsuarioGUI implements ActionListener {
         panelDivision.add(registrarProfesor);
         panelDivision.add(registrarAlumno);
         panelDivision.setLayout(null);
-        panelDivision.setBounds(0,0,425,425);
+        panelDivision.setBounds(0,0,640,640);
         panelDivision.setVisible(true);
 
 
@@ -157,11 +201,43 @@ public class UsuarioGUI implements ActionListener {
 
 
         }
+        if (e.getSource() == volverDivision1) {
+            panelAlumno.setVisible(false);
+            panelDivision.setVisible(true);
+
+
+        }
+        if (e.getSource() == volverDivision2) {
+            panelProfesor.setVisible(false);
+            panelDivision.setVisible(true);
+
+
+        }
         if (e.getSource() == registrarProfesor) {
             panelProfesor.setVisible(true);
             panelDivision.setVisible(false);
 
 
+        }
+        if (e.getSource() == eliminarAlumnoButton) {
+            long id = Long.parseLong(alumnoIdField.getText());
+
+            try {
+                alumnoService.eliminarAlumno(id);
+
+            } catch (ServiceException ex) {
+                throw new RuntimeException(ex);
+            }
+        }
+        if (e.getSource() == eliminarProfesorButton) {
+            long id = Long.parseLong(profesorIdField.getText());
+
+            try {
+                profesorService.eliminarProfesor(id);
+
+            } catch (ServiceException ex) {
+                throw new RuntimeException(ex);
+            }
         }
         if (e.getSource() == registrarAlumnos) {
             String usuario = alumnoUsuarioField.getText();
