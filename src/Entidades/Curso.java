@@ -93,5 +93,8 @@ public class Curso {
         this.precioCurso = precioCurso;
     }
 
-
+    @Override
+    public String toString() {
+        return   nombreCurso + "  " + nombreProfesor  + "  " + cupoCurso + "  " + precioCurso;
+    }
 }
