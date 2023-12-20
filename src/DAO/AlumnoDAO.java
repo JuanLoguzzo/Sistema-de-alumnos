@@ -54,22 +54,15 @@ public class AlumnoDAO implements DAO<Alumno>{
             Class.forName(DB_JDBC_DRIVER);
             connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
 
-            preparedStatement = connection.prepareStatement("UPDATE alumnos NOMBREUSUARIO=?, CONTRASEÑA=?, NOMBRE=?, APELLIDO=? WHERE ID=?");
+            preparedStatement = connection.prepareStatement("UPDATE alumnos SET NOMBREUSUARIO=?, CONTRASEÑA=?, NOMBRE=?, APELLIDO=? WHERE ID=?");
 
             preparedStatement.setString(1, alumno.getCorreo());
             preparedStatement.setString(2,alumno.getContraseña());
             preparedStatement.setString(3,alumno.getNombre());
             preparedStatement.setString(4,alumno.getApellido());
             preparedStatement.setLong(5,alumno.getId());
-
-
-
             int res = preparedStatement.executeUpdate();
-
-
             System.out.println("Registros modificados: " + res);
-
-
         }
         catch (ClassNotFoundException | SQLException e)
         {
@@ -156,6 +149,37 @@ public class AlumnoDAO implements DAO<Alumno>{
         } catch (SQLException | ClassNotFoundException var6) {
             throw new DAOException(var6.getMessage());
         }
+    }
+    public Alumno buscar3(String correo) throws DAOException{
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Alumno alumno = null;
+
+        try {
+            Class.forName(DB_JDBC_DRIVER);
+            connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
+            preparedStatement = connection.prepareStatement("SELECT * FROM alumnos WHERE NOMBREUSUARIO=?");
+            preparedStatement.setString(1,correo);
+
+            ResultSet res = preparedStatement.executeQuery();
+
+            while(res.next())
+            {
+                alumno = new Alumno();
+                alumno.setId( res.getLong("ID") );
+                alumno.setContraseña( res.getString("CONTRASEÑA") );
+                alumno.setCorreo(res.getString("NOMBREUSUARIO"));
+                alumno.setNombre(res.getString("NOMBRE"));
+                alumno.setApellido(res.getString("APELLIDO"));
+            }
+
+        } catch (ClassNotFoundException | SQLException e)
+        {
+            throw  new DAOException(e.getMessage());
+        }
+
+        return alumno;
     }
 }
 

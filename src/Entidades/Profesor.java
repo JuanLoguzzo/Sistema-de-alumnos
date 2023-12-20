@@ -10,6 +10,10 @@ public class Profesor extends Usuario {
         this.apellido = apellido;
     }
 
+    public Profesor(String correo, String contraseña) {
+        super(correo, contraseña);
+    }
+
     public Profesor() {
 
     }

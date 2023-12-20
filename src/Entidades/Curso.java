@@ -1,30 +1,63 @@
 package Entidades;
 
+import java.util.ArrayList;
+
 public class Curso {
-    private long codCurso;
+    private int codCurso;
     private String nombreCurso;
     private String nombreProfesor;
+    private String correoProfesor;
+    private Profesor profesor;
     private int cupoCurso;
     private int precioCurso;
+    private  ArrayList<Alumno> alumnos = new ArrayList();
 
 
-    public Curso( String nombreCurso, String nombreProfesor, int cupoCurso, int precioCurso) {
+    public Curso(int codCurso, String nombreCurso, String nombreProfesor, Profesor profesor,String correoProfesor, int cupoCurso, int precioCurso, ArrayList<Alumno> alumnos) {
+        this.codCurso = codCurso;
         this.nombreCurso = nombreCurso;
         this.nombreProfesor = nombreProfesor;
+        this.correoProfesor = correoProfesor;
+        this.profesor = profesor;
         this.cupoCurso = cupoCurso;
         this.precioCurso = precioCurso;
-
+        this.alumnos = alumnos;
     }
+    public Curso(int codCurso, String nombreCurso, String nombreProfesor,String correoProfesor, int cupoCurso, int precioCurso) {
+        this.codCurso = codCurso;
+        this.nombreCurso = nombreCurso;
+        this.nombreProfesor = nombreProfesor;
+        this.correoProfesor = correoProfesor;
+        this.cupoCurso = cupoCurso;
+        this.precioCurso = precioCurso;
+    }
+
 
     public Curso() {
 
     }
 
-    public long getCodCurso() {
+    public Profesor getProfesor() {
+        return profesor;
+    }
+
+    public String getCorreoProfesor() {
+        return correoProfesor;
+    }
+
+    public void setCorreoProfesor(String correoProfesor) {
+        this.correoProfesor = correoProfesor;
+    }
+
+    public void setProfesor(Profesor profesor) {
+        this.profesor = profesor;
+    }
+
+    public int getCodCurso() {
         return codCurso;
     }
 
-    public void setCodCurso(long codCurso) {
+    public void setCodCurso(int codCurso) {
         this.codCurso = codCurso;
     }
 

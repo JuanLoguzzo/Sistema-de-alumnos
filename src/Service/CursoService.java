@@ -3,7 +3,13 @@ package Service;
 
 import DAO.CursoDAO;
 import DAO.DAOException;
+import DAO.ProfesorDAO;
+import Entidades.Alumno;
 import Entidades.Curso;
+
+import javax.swing.*;
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class CursoService {
     private CursoDAO cursoDao;
@@ -45,6 +51,25 @@ public class CursoService {
         }
 
         return curso;
+    }
+    public JComboBox<Curso> cargarCursos(JComboBox<Curso> cursosComboBox) {
+        try {
+            ArrayList<Curso> cursos = this.cursoDao.buscarTodos();
+            ProfesorService profesorService = new ProfesorService();
+            Iterator var4 = cursos.iterator();
+
+            while(var4.hasNext()) {
+                Curso curso = (Curso)var4.next();
+                curso.setProfesor(profesorService.buscar3Profesor(curso.getCorreoProfesor()));
+                cursosComboBox.addItem(curso);
+            }
+
+            return cursosComboBox;
+        } catch (ServiceException var6) {
+            throw new RuntimeException(var6);
+        } catch (DAOException var7) {
+            throw new RuntimeException(var7);
+        }
     }
 
 }

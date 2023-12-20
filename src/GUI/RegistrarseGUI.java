@@ -28,6 +28,7 @@ public class RegistrarseGUI implements ActionListener {
     JButton registrarProfesor = new JButton("Profesor");
     JButton alumnoVolverDivisionRegistrar = new JButton("volver al registo");
     JButton profesorVolverDivisionRegistrar = new JButton("volver al registo");
+    JButton login = new JButton("volver al login");
 
     JLabel alumnoCorreoLabel = new JLabel("Ingrese su correo: ");
     JLabel alumnoContraseñaLabel = new JLabel("Ingrese su contraseña: ");
@@ -69,7 +70,7 @@ public class RegistrarseGUI implements ActionListener {
         registrarAlumnos.addActionListener(this);
         registrarAlumnos.setFocusable(false);
 
-        registrarAlumno.setBounds(150, 150, 220, 100);
+        registrarAlumno.setBounds(150, 150, 150, 50);
         registrarAlumno.addActionListener(this);
         registrarAlumno.setFocusable(false);
 
@@ -116,7 +117,7 @@ public class RegistrarseGUI implements ActionListener {
         registrarProfesores.setFocusable(false);
 
 
-        registrarProfesor.setBounds(150, 325, 220, 100);
+        registrarProfesor.setBounds(150, 225, 150, 50);
         registrarProfesor.addActionListener(this);
         registrarProfesor.setFocusable(false);
 
@@ -140,6 +141,11 @@ public class RegistrarseGUI implements ActionListener {
         //DIVISION REGISTRAR
         textoDivisionRegistrar.setBounds(150, 50, 300, 50);
 
+        login.setBounds(150, 300, 150, 50);
+        login.addActionListener(this);
+        login.setFocusable(false);
+
+        panelDivisionRegistrar.add(login);
         panelDivisionRegistrar.add(textoDivisionRegistrar);
         panelDivisionRegistrar.add(registrarProfesor);
         panelDivisionRegistrar.add(registrarAlumno);
@@ -215,7 +221,12 @@ public class RegistrarseGUI implements ActionListener {
                     throw new RuntimeException(ex);
                 }
             }
+        if (e.getSource() == login){
+            new LoginGUI ();
+            frame.dispose();
         }
+        }
+
 
 
 

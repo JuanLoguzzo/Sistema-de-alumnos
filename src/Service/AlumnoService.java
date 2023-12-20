@@ -74,4 +74,15 @@ public class AlumnoService {
             throw new RuntimeException(e);
         }
     }
+
+    public Alumno buscar3Alumno(String correo) throws ServiceException{
+        Alumno alumno;
+        try {
+            alumno = alumnoDao.buscar3(correo);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }
+
+        return alumno;
+    }
 }

@@ -6,9 +6,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import Entidades.Admin;
 import Entidades.Alumno;
 import Entidades.Profesor;
 
+import Service.AdminService;
 import Service.AlumnoService;
 import Service.ProfesorService;
 import Service.ServiceException;
@@ -18,29 +20,47 @@ public class LoginGUI implements ActionListener {
 
     AlumnoService alumnoService = new AlumnoService();
     ProfesorService profesorService = new ProfesorService();
+    AdminService adminService = new AdminService();
 
     JFrame frame = new JFrame();
-
-    JPanel panelDivisionLogin = new JPanel();
+    //ALUMNO
     JPanel panelLoginAlumno = new JPanel();
-    JPanel panelLoginProfesor = new JPanel();
-    JLabel textoDivisionLogin = new JLabel("Como que tipo de usuario quiere iniciar sesion");
     JLabel alumnoUsuarioLabel = new JLabel("Ingrese su correo: ");
     JLabel alumnoContraseñaLabel = new JLabel("Ingrese su contraseña: ");
-    JLabel mensajeLabel = new JLabel();
     JButton loginAlumnos = new JButton("Ingresar como alumno");
-    JButton loginProfesores = new JButton("Ingresar como profesor");
-    JButton registrarse = new JButton("Registrarse");
     JButton loginAlumno = new JButton("Alumno");
-    JButton loginProfesor = new JButton("Profesor");
     JButton alumnoVolverDivisionLogin = new JButton("volver al Login");
-    JButton profesorVolverDivisionLogin = new JButton("volver al Login");
     JTextField alumnoUsuarioField = new JTextField();
     JPasswordField alumnoContraseñaField = new JPasswordField();
+
+    //PROFESORES
+    JPanel panelLoginProfesor = new JPanel();
+    JButton loginProfesores = new JButton("Ingresar como profesor");
+    JButton loginProfesor = new JButton("Profesor");
+    JButton profesorVolverDivisionLogin = new JButton("volver al Login");
     JLabel profesorUsuarioLabel = new JLabel("Ingrese su correo: ");
     JLabel profesorContraseñaLabel = new JLabel("Ingrese su contraseña: ");
     JTextField profesorUsuarioField = new JTextField();
     JPasswordField profesorContraseñaField = new JPasswordField();
+
+    //ADMIN
+    JPanel panelLoginAdmin = new JPanel();
+    JLabel adminUsuarioLabel = new JLabel("Ingrese su correo: ");
+    JLabel adminContraseñaLabel = new JLabel("Ingrese su contraseña: ");
+    JButton loginAdmins = new JButton("Ingresar como admin");
+    JButton loginAdmin = new JButton("Admin");
+    JButton adminVolverDivisionLogin = new JButton("volver al Login");
+    JTextField adminUsuarioField = new JTextField();
+    JPasswordField adminContraseñaField = new JPasswordField();
+
+    //DIVISION Y OTROS
+    JPanel panelDivisionLogin = new JPanel();
+    JLabel textoDivisionLogin = new JLabel("Como que tipo de usuario quiere iniciar sesion");
+    JLabel mensajeLabel = new JLabel();
+    JButton registrarse = new JButton("Registrarse");
+
+
+
 
 
 
@@ -57,7 +77,7 @@ public class LoginGUI implements ActionListener {
         loginAlumnos.addActionListener(this);
         loginAlumnos.setFocusable(false);
 
-        loginAlumno.setBounds(150, 150, 220, 100);
+        loginAlumno.setBounds(150, 150, 150, 50);
         loginAlumno.addActionListener(this);
         loginAlumno.setFocusable(false);
 
@@ -92,7 +112,7 @@ public class LoginGUI implements ActionListener {
         loginProfesores.addActionListener(this);
         loginProfesores.setFocusable(false);
 
-        loginProfesor.setBounds(150, 275, 220, 100);
+        loginProfesor.setBounds(150, 225, 150, 50);
         loginProfesor.addActionListener(this);
         loginProfesor.setFocusable(false);
 
@@ -107,11 +127,40 @@ public class LoginGUI implements ActionListener {
         panelLoginProfesor.setBounds(0, 0, 640, 640);
         panelLoginProfesor.setVisible(false);
 
+        //LOGIN ADMINS
+        adminUsuarioLabel.setBounds(50, 50, 150, 25);
+        adminContraseñaLabel.setBounds(50, 100, 150, 25);
 
-    //DIVISION LOGIN
+        adminUsuarioField.setBounds(200, 50, 205, 25);
+        adminContraseñaField.setBounds(200, 100, 205, 25);
+
+        loginAdmins.setBounds(25, 270, 200, 100);
+        loginAdmins.addActionListener(this);
+        loginAdmins.setFocusable(false);
+
+        loginAdmin.setBounds(350, 225, 150, 50);
+        loginAdmin.addActionListener(this);
+        loginAdmin.setFocusable(false);
+
+        adminVolverDivisionLogin.setBounds(250, 270, 220, 100);
+        adminVolverDivisionLogin.addActionListener(this);
+        adminVolverDivisionLogin.setFocusable(false);
+
+        panelLoginAdmin.add(adminUsuarioLabel);
+        panelLoginAdmin.add(adminContraseñaLabel);
+        panelLoginAdmin.add(loginAdmins);
+        panelLoginAdmin.add(adminUsuarioField);
+        panelLoginAdmin.add(adminContraseñaField);
+        panelLoginAdmin.add(adminVolverDivisionLogin);
+
+        panelLoginAdmin.setLayout(null);
+        panelLoginAdmin.setBounds(0, 0, 640, 640);
+        panelLoginAdmin.setVisible(false);
+
+        //DIVISION LOGIN
         textoDivisionLogin.setBounds(150,50,300,50);
 
-        registrarse.setBounds(150, 400, 220, 100);
+        registrarse.setBounds(150, 300, 150, 50);
         registrarse.addActionListener(this);
         registrarse.setFocusable(false);
 
@@ -119,6 +168,7 @@ public class LoginGUI implements ActionListener {
         panelDivisionLogin.add(textoDivisionLogin);
         panelDivisionLogin.add(loginProfesor);
         panelDivisionLogin.add(loginAlumno);
+        panelDivisionLogin.add(loginAdmin);
         panelDivisionLogin.setLayout(null);
         panelDivisionLogin.setBounds(0,0,640,640);
         panelDivisionLogin.setVisible(true);
@@ -127,11 +177,13 @@ public class LoginGUI implements ActionListener {
 
 
 
-    //FRAME
+        //FRAME
+
         frame.add(mensajeLabel);
         frame.add(panelDivisionLogin);
         frame.add(panelLoginAlumno);
         frame.add(panelLoginProfesor);
+        frame.add(panelLoginAdmin);
 
 
         frame.setTitle("Login");
@@ -167,10 +219,20 @@ public class LoginGUI implements ActionListener {
             panelDivisionLogin.setVisible(true);
         }
 
+        if (e.getSource() == loginAdmin) {
+            panelLoginAdmin.setVisible(true);
+            panelDivisionLogin.setVisible(false);
+        }
+
+        if (e.getSource() == adminVolverDivisionLogin) {
+            panelLoginAdmin.setVisible(false);
+            panelDivisionLogin.setVisible(true);
+        }
+
 
         String correo;
         String contraseña;
-        if (e.getSource() == loginAlumno) {
+        if (e.getSource() == loginAlumnos) {
             correo = alumnoUsuarioField.getText();
             contraseña = alumnoContraseñaField.getText();
             new Alumno(correo, contraseña);
@@ -182,35 +244,21 @@ public class LoginGUI implements ActionListener {
         if (e.getSource() == loginProfesores) {
             correo = profesorUsuarioField.getText();
             contraseña = profesorContraseñaField.getText();
-
-            try {
-                Profesor profesor = profesorService.buscar2Profesor(correo);
-                if (profesor != null) {
-                    if(profesor.getContraseña().equals(contraseña)){
-                        if(profesor.getCorreo().equals(correo)){
-                            mensajeLabel.setText("Login Exitoso");
-                            mensajeLabel.setForeground(Color.green);
-                            HomeProfesoresGUI homePage = new HomeProfesoresGUI(correo, contraseña);
-                            frame.dispose();
-                        }
-                        else{
-                            mensajeLabel.setText("Usuario Incorrecto");
-                            mensajeLabel.setForeground(Color.red);
-                        }
-                    }
-                    else{
-                        mensajeLabel.setText("Contraseña incorrecta");
-                        mensajeLabel.setForeground(Color.red);
-                    }
-                } else {
-                    mensajeLabel.setText("Usuario inexistente");
-                    mensajeLabel.setForeground(Color.red);
-                }
-            } catch (ServiceException ex) {
-                throw new RuntimeException(ex);
+            new Profesor(correo, contraseña);
+            if (profesorService.buscar2Profesor(correo, contraseña, this.frame)) {
+                panelLoginProfesor.setVisible(false);
             }
-
         }
+        if (e.getSource() == loginAdmins) {
+            correo = adminUsuarioField.getText();
+            contraseña = adminContraseñaField.getText();
+            new Admin(correo, contraseña);
+            if (adminService.buscar2Admin(correo, contraseña, this.frame)) {
+                panelLoginAdmin.setVisible(false);
+            }
+        }
+
+
 
         if(e.getSource()==registrarse){
             new RegistrarseGUI ();
