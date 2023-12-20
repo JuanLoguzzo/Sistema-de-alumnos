@@ -5,10 +5,15 @@ public class Alumno extends Usuario{
     private String apellido;
 
 
-    public Alumno(long id,String nombreUsuario, String contraseña,  String nombre, String apellido) {
-        super(id,nombreUsuario, contraseña);
+
+    public Alumno(String correo, String contraseña,  String nombre, String apellido) {
+        super(correo, contraseña);
         this.nombre = nombre;
         this.apellido = apellido;
+    }
+
+    public Alumno(String correo, String contraseña) {
+        super(correo, contraseña);
     }
 
     public Alumno() {

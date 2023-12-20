@@ -1,28 +1,28 @@
 package Entidades;
 
 public abstract class Usuario {
-    private String nombreUsuario;
+    private String correo;
     private String contraseña;
+
     private long id;
 
 
-    public Usuario(long id,String nombreUsuario, String contraseña) {
-        this.id = id;
-        this.nombreUsuario = nombreUsuario;
+    public Usuario(String correo, String contraseña) {
+        this.correo = correo;
         this.contraseña = contraseña;
-
     }
 
     public Usuario() {
 
     }
 
-    public String getNombreUsuario() {
-        return nombreUsuario;
+
+    public String getCorreo() {
+        return correo;
     }
 
-    public void setNombreUsuario(String nombreUsuario) {
-        this.nombreUsuario = nombreUsuario;
+    public void setCorreo(String nombreUsuario) {
+        this.correo = nombreUsuario;
     }
 
 
@@ -36,6 +36,8 @@ public abstract class Usuario {
         this.contraseña = contraseña;
     }
 
+
+
     public long getId() {
         return id;
     }
@@ -43,4 +45,7 @@ public abstract class Usuario {
     public void setId(long id) {
         this.id = id;
     }
+
+
+
 }

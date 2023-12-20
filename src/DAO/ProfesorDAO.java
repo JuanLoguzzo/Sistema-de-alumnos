@@ -25,7 +25,7 @@ public class ProfesorDAO implements DAO<Profesor>{
 
             preparedStatement = connection.prepareStatement("INSERT INTO Profesores VALUES(?,?,?,?,?)");
             preparedStatement.setLong(1,profesor.getId());
-            preparedStatement.setString(2,profesor.getNombreUsuario());
+            preparedStatement.setString(2,profesor.getCorreo());
             preparedStatement.setString(3,profesor.getContraseña());
             preparedStatement.setString(4,profesor.getNombre());
             preparedStatement.setString(5,profesor.getApellido());
@@ -55,7 +55,7 @@ public class ProfesorDAO implements DAO<Profesor>{
 
             preparedStatement = connection.prepareStatement("UPDATE Profesores NOMBREUSUARIO=?, CONTRASEÑA=?, NOMBRE=?, APELLIDO=? WHERE ID=?");
 
-            preparedStatement.setString(1, profesor.getNombreUsuario());
+            preparedStatement.setString(1, profesor.getCorreo());
             preparedStatement.setString(2,profesor.getContraseña());
             preparedStatement.setString(3,profesor.getNombre());
             preparedStatement.setString(4,profesor.getApellido());
@@ -122,7 +122,7 @@ public class ProfesorDAO implements DAO<Profesor>{
                 profesor = new Profesor();
                 profesor.setId( res.getLong("ID") );
                 profesor.setContraseña( res.getString("CONTRASEÑA") );
-                profesor.setNombreUsuario(res.getString("NOMBREUSUARIO"));
+                profesor.setCorreo(res.getString("NOMBREUSUARIO"));
                 profesor.setNombre(res.getString("NOMBRE"));
                 profesor.setApellido(res.getString("APELLIDO"));
 
@@ -134,5 +134,35 @@ public class ProfesorDAO implements DAO<Profesor>{
         }
 
         return profesor;
+    }
+    public Profesor buscar2(String correo) throws DAOException {
+
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Profesor profesor = null;
+
+        try {
+            Class.forName(DB_JDBC_DRIVER);
+            connection = DriverManager.getConnection(DB_URL, DB_USER, DB_PASSWORD);
+            preparedStatement = connection.prepareStatement("SELECT * FROM profesores WHERE NOMBREUSUARIO=?");
+            preparedStatement.setString(1, correo);
+
+            ResultSet res = preparedStatement.executeQuery();
+
+            while (res.next()) {
+                profesor = new Profesor();
+                profesor.setId(res.getLong("ID"));
+                profesor.setContraseña(res.getString("CONTRASEÑA"));
+                profesor.setCorreo(res.getString(correo));
+                profesor.setNombre(res.getString("NOMBRE"));
+                profesor.setApellido(res.getString("APELLIDO"));
+            }
+
+        } catch (ClassNotFoundException | SQLException e) {
+            throw new DAOException(e.getMessage());
+        }
+
+        return profesor;
+
     }
 }

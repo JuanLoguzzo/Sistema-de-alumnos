@@ -19,20 +19,19 @@ public class AlumnoDAO implements DAO<Alumno>{
         PreparedStatement preparedStatement = null;
 
         try {
-            //Levantar el driver y conectarnos
-            //si no encuentra los drivers tira excepcion y sino devuelve un TRUE
+
             Class.forName(DB_JDBC_DRIVER);
-            //generamos una conexion con la base de datos que se le dio en los parametros
+
             connection = DriverManager.getConnection(DB_URL,DB_USER,DB_PASSWORD);
-            // se crea la sentencia SQL
-            preparedStatement = connection.prepareStatement("INSERT INTO alumnos VALUES(?,?,?,?,?)");
+
+            preparedStatement = connection.prepareStatement("INSERT into alumnos Values(?,?,?,?,?)");
             preparedStatement.setLong(1,alumno.getId());
-            preparedStatement.setString(2,alumno.getNombreUsuario());
+            preparedStatement.setString(2,alumno.getCorreo());
             preparedStatement.setString(3,alumno.getContraseña());
             preparedStatement.setString(4,alumno.getNombre());
             preparedStatement.setString(5,alumno.getApellido());
 
-            // Ejecutar la sentencia y executeUpdate inserta los datos en la tabla
+
             int res = preparedStatement.executeUpdate();
 
 
@@ -57,11 +56,12 @@ public class AlumnoDAO implements DAO<Alumno>{
 
             preparedStatement = connection.prepareStatement("UPDATE alumnos NOMBREUSUARIO=?, CONTRASEÑA=?, NOMBRE=?, APELLIDO=? WHERE ID=?");
 
-            preparedStatement.setString(1, alumno.getNombreUsuario());
+            preparedStatement.setString(1, alumno.getCorreo());
             preparedStatement.setString(2,alumno.getContraseña());
             preparedStatement.setString(3,alumno.getNombre());
             preparedStatement.setString(4,alumno.getApellido());
             preparedStatement.setLong(5,alumno.getId());
+
 
 
             int res = preparedStatement.executeUpdate();
@@ -115,19 +115,16 @@ public class AlumnoDAO implements DAO<Alumno>{
             preparedStatement = connection.prepareStatement("SELECT * FROM alumnos WHERE id=?");
             preparedStatement.setLong(1,id);
 
-            //guardas los resultados del select en la variable res
             ResultSet res = preparedStatement.executeQuery();
 
-            //luego insertas los datos en que conseguiste del select en un objeto de Alumno
-            while(res.next()) //.next devuelve un true si hay datos en la tabla
+            while(res.next())
             {
                 alumno = new Alumno();
                 alumno.setId( res.getLong("ID") );
                 alumno.setContraseña( res.getString("CONTRASEÑA") );
-                alumno.setNombreUsuario(res.getString("NOMBREUSUARIO"));
+                alumno.setCorreo(res.getString("NOMBREUSUARIO"));
                 alumno.setNombre(res.getString("NOMBRE"));
                 alumno.setApellido(res.getString("APELLIDO"));
-
             }
 
         } catch (ClassNotFoundException | SQLException e)
@@ -137,6 +134,28 @@ public class AlumnoDAO implements DAO<Alumno>{
 
         return alumno;
     }
+    public  Alumno buscar2(String correo) throws DAOException {
+        Connection connection = null;
+        PreparedStatement preparedStatement = null;
+        Alumno alumno = null;
 
+        try {
+            Class.forName(this.DB_JDBC_DRIVER);
+            connection = DriverManager.getConnection(this.DB_URL, this.DB_USER, this.DB_PASSWORD);
+            preparedStatement = connection.prepareStatement("SELECT * FROM ALUMNOS  WHERE NOMBREUSUARIO=?");
+            preparedStatement.setString(1, correo);
+            ResultSet resultSet = preparedStatement.executeQuery();
+            if (resultSet.next()) {
+                alumno = new Alumno();
+                alumno.setCorreo(correo);
+                alumno.setContraseña(resultSet.getString("CONTRASEÑA"));
+
+            }
+
+            return alumno;
+        } catch (SQLException | ClassNotFoundException var6) {
+            throw new DAOException(var6.getMessage());
+        }
+    }
 }
 

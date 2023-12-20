@@ -48,4 +48,14 @@ public class ProfesorService {
 
         return profesor;
     }
+    public Profesor buscar2Profesor(String correo) throws ServiceException{
+        Profesor profesor;
+        try {
+            profesor = profesorDao.buscar2(correo);
+        } catch (DAOException e) {
+            throw new ServiceException(e.getMessage());
+        }
+
+        return profesor;
+    }
 }

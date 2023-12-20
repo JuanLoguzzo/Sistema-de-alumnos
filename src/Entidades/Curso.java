@@ -7,17 +7,17 @@ public class Curso {
     private int cupoCurso;
     private int precioCurso;
 
-    private String fechaInicio;
-    private String fechaFin;
 
-    public Curso(long codCurso, String nombreCurso, String nombreProfesor, int cupoCurso, int precioCurso, String fechaInicio, String fechaFin) {
-        this.codCurso = codCurso;
+    public Curso( String nombreCurso, String nombreProfesor, int cupoCurso, int precioCurso) {
         this.nombreCurso = nombreCurso;
         this.nombreProfesor = nombreProfesor;
         this.cupoCurso = cupoCurso;
         this.precioCurso = precioCurso;
-        this.fechaInicio = fechaInicio;
-        this.fechaFin = fechaFin;
+
+    }
+
+    public Curso() {
+
     }
 
     public long getCodCurso() {
@@ -60,19 +60,5 @@ public class Curso {
         this.precioCurso = precioCurso;
     }
 
-    public String getFechaInicio() {
-        return fechaInicio;
-    }
 
-    public void setFechaInicio(String fechaInicio) {
-        this.fechaInicio = fechaInicio;
-    }
-
-    public String getFechaFin() {
-        return fechaFin;
-    }
-
-    public void setFechaFin(String fechaFin) {
-        this.fechaFin = fechaFin;
-    }
 }
